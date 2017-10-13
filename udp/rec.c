@@ -59,9 +59,5 @@ int main(int argc, char **argv){
     {
         rc = recvfrom(socket_fd,buffer,sizeof(buffer),0,(struct sockaddr *) &peer,(socklen_t *)&peerlen);
         printf("Recebido %s\n", &buffer);
-        
-        strcpy(buffer,"ACK");
-        sendto(socket_fd,buffer,sizeof(buffer),0,(struct sockaddr *)&peer, peerlen);
-        printf("Enviado ACK\n\n");
     }
 }

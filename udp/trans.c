@@ -45,9 +45,9 @@ int main(int argc, char **argv){
                 i++;
                 kbits_to_send = atoi(argv[i]);
                 int bits_to_send = kbits_to_send * 1000;
-                adjusted_sleep = buffer_bit_size / bits_to_send;
+                adjusted_sleep = (float)((float)buffer_bit_size / (float)bits_to_send) * 1000000;
+                printf("Taxa: %f\n", adjusted_sleep);
                 break;
-                
             default:
                 printf("Parametro invalido %d: %s\n",i,argv[i]);
                 exit(1);
@@ -69,9 +69,6 @@ int main(int argc, char **argv){
         strcpy(buffer,"Hello");
         sendto(socket_fd, buffer, sizeof(buffer), 0, (struct sockaddr *)&peer, peerlen);
         printf("Enviado Hello\n");
-        
-        rc = recvfrom(socket_fd, buffer, sizeof(buffer), 0, (struct sockaddr *) &peer, (socklen_t *) &peerlen);
-        printf("Recebido %s\n\n",&buffer);
-        sleep(adjusted_sleep);
+        usleep(adjusted_sleep);
     }
 }
